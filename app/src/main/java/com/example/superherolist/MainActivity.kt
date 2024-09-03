@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.example.superherolist.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,10 +41,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searByName(query: String?) {
+        binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch {
             val myResponse = retrofit.create(ApiService::class.java).getSuperheroes(query.toString())
             if(myResponse.isSuccessful){
-                Log.i("Maurzac", "funcion")
+                val response: SuperHeroDataResponse? = myResponse.body()
+                if(response != null){
+                    Log.i("Maurzac", response.toString())
+                    runOnUiThread {
+                        binding.progressBar.isVisible = false
+                    }
+                }
             }else{
                 Log.i("Maurzac", "no funciona")
             }
