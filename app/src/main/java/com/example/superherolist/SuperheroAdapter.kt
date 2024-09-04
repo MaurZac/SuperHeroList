@@ -1,17 +1,26 @@
 package com.example.superherolist
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class SuperheroAdapter(var superHeroList: List<SuperHeroDataResponse> = emptyList()) :
+class SuperheroAdapter(var superHeroList: List<SuperHeroItemResponse> = emptyList()) :
     RecyclerView.Adapter<SuperheroViewHolder>() {
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperheroViewHolder {
-        TODO("Not yet implemented")
+
+        return SuperheroViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_superhero, parent, false))
     }
 
     override fun getItemCount() = superHeroList.size
 
-    override fun onBindViewHolder(holder: SuperheroViewHolder, position: Int) {
-        val item = superHeroList[position]
+    override fun onBindViewHolder(viewholder: SuperheroViewHolder, position: Int) {
+        viewholder.bind(superHeroList[position])
+    }
+
+    fun updateList(superHeroList: List<SuperHeroItemResponse>){
+        this.superHeroList = superHeroList
+        notifyDataSetChanged()
     }
 }

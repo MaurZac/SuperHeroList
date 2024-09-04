@@ -8,6 +8,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.superherolist.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,8 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var retrofit: Retrofit
+    private lateinit var adapter: SuperheroAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,6 +42,10 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onQueryTextChange(newText: String?) = false
         })
+        adapter = SuperheroAdapter()
+        binding.superheroList.setHasFixedSize(true)
+        binding.superheroList.layoutManager = LinearLayoutManager(this)
+        binding.superheroList.adapter = adapter
     }
 
     private fun searByName(query: String?) {
@@ -49,7 +57,9 @@ class MainActivity : AppCompatActivity() {
                 if(response != null){
                     Log.i("Maurzac", response.toString())
                     runOnUiThread {
+                        adapter.updateList(response.superheros)
                         binding.progressBar.isVisible = false
+
                     }
                 }
             }else{
