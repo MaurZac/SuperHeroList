@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="superhero_item_name">#8F0DC7E7</color>
+    <color name="superhero_bg">#5E7627</color>
 </resources>
