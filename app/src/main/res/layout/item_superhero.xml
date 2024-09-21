@@ -14,9 +14,10 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/imageV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#3BAF70" />
+            android:background="#5E245D8B" />
 
         <FrameLayout
             android:layout_width="match_parent"
