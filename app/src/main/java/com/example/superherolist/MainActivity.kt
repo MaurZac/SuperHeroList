@@ -1,11 +1,13 @@
 package com.example.superherolist
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.superherolist.DetailSuperheroActivity.Companion.EXTRA_ID
 import com.example.superherolist.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +38,9 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onQueryTextChange(newText: String?) = false
         })
-        adapter = SuperheroAdapter()
+        adapter = SuperheroAdapter{
+            navigateToDetail(it)
+        }
         binding.superheroList.setHasFixedSize(true)
         binding.superheroList.layoutManager = LinearLayoutManager(this)
         binding.superheroList.adapter = adapter
@@ -67,5 +71,11 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://superheroapi.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    private fun navigateToDetail(id: String) {
+       val intent = Intent(this, DetailSuperheroActivity::class.java)
+        intent.putExtra(EXTRA_ID, id)
+        startActivity(intent)
     }
 }

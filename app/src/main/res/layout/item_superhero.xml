@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:background="@color/superhero_bg"
     app:cardElevation="8dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="22dp">
 
     <FrameLayout
@@ -17,6 +19,7 @@
             android:id="@+id/imageV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:background="#5E245D8B" />
 
         <FrameLayout
